@@ -1,6 +1,7 @@
 ﻿Imports Chilkat
 Imports Parse
 Imports System.IO
+Imports System.Xml
 
 
 Public Class FetchForm
@@ -25,12 +26,11 @@ Public Class FetchForm
 
             Dim rssChannel = rss.GetChannel(0)
 
-
-            'Parse
-
             If rssChannel Is Nothing Then
-                MsgBox("No Channel Found in RSS")
-                Return
+                consoleBox.Text += vbNewLine & "No Channel Found in RSS: " & item.Link & vbNewLine
+                consoleBox.Text += vbNewLine & "Skipping to next link ..." & vbNewLine
+                'MsgBox("No Channel Found in RSS")
+                Continue For
             End If
 
             consoleBox.Text += vbNewLine & "Now fetching ... " & vbNewLine
@@ -98,6 +98,9 @@ Public Class FetchForm
         OpenFileDialog1.ShowDialog()
         Dim file As String = OpenFileDialog1.FileName
         csvFileBox.Text = file
+        readBtn.Enabled = True
+        fetchBtn.Enabled = False
+        rssLinks = New List(Of RssLinks)
     End Sub
 
     Private Sub readBtn_Click(sender As Object, e As EventArgs) Handles readBtn.Click
@@ -135,4 +138,6 @@ Public Class FetchForm
 
         End If
     End Sub
+
+
 End Class
