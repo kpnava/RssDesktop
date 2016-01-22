@@ -60,7 +60,7 @@ Partial Class FetchForm
         Me.csvFileBox.ReadOnly = True
         Me.csvFileBox.Size = New System.Drawing.Size(304, 20)
         Me.csvFileBox.TabIndex = 4
-        Me.csvFileBox.Text = "Click to load CSV file ..."
+        Me.csvFileBox.Text = "Click to load CSV/TXT file ..."
         '
         'readBtn
         '

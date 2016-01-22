@@ -18,8 +18,9 @@ Public Class FetchForm
 
             Dim success = rss.DownloadRss(item.Link)
             If success <> True Then
-                MsgBox(rss.LastErrorText)
-                Return
+                consoleBox.Text += vbNewLine & "An error occured with this link: " & item.Link & vbNewLine
+                consoleBox.Text += vbNewLine & "Skipping to next link ..." & vbNewLine
+                Continue For
             End If
 
             Dim rssChannel = rss.GetChannel(0)
@@ -65,7 +66,8 @@ Public Class FetchForm
             consoleBox.Text += vbNewLine & vbNewLine & vbNewLine
         Next
 
-        consoleBox.Text += vbNewLine & vbNewLine & "Process Complete!"
+        consoleBox.Text += vbNewLine & vbNewLine & "No more links detected."
+        consoleBox.Text += vbNewLine & vbNewLine & "Process Complete!" & vbNewLine
         consoleBox.Text += vbNewLine & "View uploaded data at Parse.com" & vbNewLine
         consoleBox.Text += vbNewLine & "Account Email: kpnava.dev@gmail.com" & vbNewLine
         consoleBox.Text += vbNewLine & "Account Password: kpnavadev" & vbNewLine
@@ -100,6 +102,7 @@ Public Class FetchForm
 
     Private Sub readBtn_Click(sender As Object, e As EventArgs) Handles readBtn.Click
         If Not csvFileBox.Text = "" And File.Exists(csvFileBox.Text) Then
+            consoleBox.Text = ""
 
             rssLinks = New List(Of RssLinks)
             fetchBtn.Enabled = True
